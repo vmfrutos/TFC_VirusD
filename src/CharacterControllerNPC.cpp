@@ -33,7 +33,6 @@ void CharacterControllerNPC::setupAnimations()
 			"Walk01"
 	};
 
-	cout << "traza_01" << endl;
 	for (int i = 0; i < NUM_ANIMS; i++)
 	{
 		_anims[i] = _bodyEnt->getAnimationState(animNames[i]);

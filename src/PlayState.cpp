@@ -20,7 +20,7 @@ PlayState::enter ()
 
 	_camera->setNearClipDistance(1);
 
-	_camera->setFarClipDistance(3000);
+	_camera->setFarClipDistance(450);
 
 	_viewport = _root->getAutoCreatedWindow()->addViewport(_camera);
 
@@ -32,6 +32,7 @@ PlayState::enter ()
 
 	// Se construye un debugDrawer
 	_debugDrawer = new DebugDrawer(_sceneMgr->getRootSceneNode(), _physicsWorld->getDynamicsWorld());
+	_debugDrawer->setDebugMode(false);
 
 	// Se asocia el debugDrawer al mundo físico
 	_physicsWorld->getDynamicsWorld()->setDebugDrawer(_debugDrawer);
@@ -46,6 +47,13 @@ PlayState::exit ()
 {
 	_sceneMgr->clearScene();
 	_root->getAutoCreatedWindow()->removeAllViewports();
+	_root->destroySceneManager(_sceneMgr);
+
+	delete _character;
+	for (unsigned int i=0; i< _enemies.size();i++){
+		delete _enemies[i];
+	}
+	_enemies.clear();
 }
 
 void
@@ -80,8 +88,9 @@ PlayState::frameEnded
 (const Ogre::FrameEvent& evt)
 {
 
-	if (_exitGame)
-		return false;
+	if (_exitGame){
+		changeState(IntroState::getSingletonPtr());
+	}
 
 	return true;
 }
@@ -177,24 +186,34 @@ void PlayState::createScene()
 	light->setType(Light::LT_DIRECTIONAL);
 	light->setDirection(Vector3(1, -1, 0));
 
-
+	Vector3 initPos(0,0,0);
 
 	// Creacion de la entidad y del SceneNode del plano ------------------------
 	SceneNode* groundNode = _sceneMgr->createSceneNode("ground");
-	Entity* groundEnt = _sceneMgr->createEntity("planeEnt", "Plane.mesh");
+	Entity* groundEnt = _sceneMgr->createEntity("ground", "Plane.mesh");
 	groundNode->attachObject(groundEnt);
-	Vector3 initPos(0,0,0);
 	_sceneMgr->getRootSceneNode()->addChild(groundNode);
 	_physicsWorld->addTriangleMesh(groundNode,groundEnt,initPos);
 
+	SceneNode* roadNode = _sceneMgr->createSceneNode("road");
+	Entity* roadEnt = _sceneMgr->createEntity("road", "Road.mesh");
+	roadNode->attachObject(roadEnt);
+	_sceneMgr->getRootSceneNode()->addChild(roadNode);
+	_physicsWorld->addTriangleMesh(roadNode,roadEnt,initPos);
+
+	SceneNode* wallNode = _sceneMgr->createSceneNode("wall");
+	Entity* wallEnt = _sceneMgr->createEntity("wall", "Muro.mesh");
+	wallNode->attachObject(wallEnt);
+	_sceneMgr->getRootSceneNode()->addChild(wallNode);
+	_physicsWorld->addTriangleMesh(wallNode,wallEnt,initPos);
+
 
 	/// -- Protagonista
-
-	btVector3 pos(5.0, 10.0,5.0);
+	Vector3 origin = Properties::getSingletonPtr()->getPropertyVector("hero.position");
+	btVector3 btOrigin(origin.x,origin.y,origin.z);
 	btTransform startTransform;
 	startTransform.setIdentity();
-	startTransform.setOrigin(pos);
-	Vector3 origin(pos.getX(), pos.getY(), pos.getZ());
+	startTransform.setOrigin(btOrigin);
 
 	btPairCachingGhostObject * characterGhostObject = new btPairCachingGhostObject();
 	characterGhostObject->setWorldTransform(startTransform);
@@ -226,21 +245,15 @@ void PlayState::createScene()
 
 
 	/// -- Enemigos
+	int numEmenigos = Properties::getSingletonPtr()->getPropertyInt("enemy.number");
 
-	for (int i=0; i< 1;i++) {
-		btVector3 posEnemy;
-		if (i==0)
-			posEnemy.setValue(5.0, 3.0,6.0);
-		if (i==1)
-			posEnemy.setValue(8,3.0,9.0);
-		if (i==2)
-			posEnemy.setValue(2,3,1);
+	for (int i=0; i< numEmenigos;i++) {
+		Vector3 originEnemy = Properties::getSingletonPtr()->getPropertyVector("enemy.position." + StringConverter::toString(i+1));
+		btVector3 btOriginEnemy(originEnemy.x,originEnemy.y,originEnemy.z);
 
 		btTransform startTransformEnemy;
 		startTransformEnemy.setIdentity();
-		startTransformEnemy.setOrigin(posEnemy);
-
-		Vector3 originEnemy(posEnemy.getX(), posEnemy.getY(), posEnemy.getZ());
+		startTransformEnemy.setOrigin(btOriginEnemy);
 
 
 		btPairCachingGhostObject * characterNPCGhostObject = new btPairCachingGhostObject();
@@ -268,6 +281,18 @@ void PlayState::createScene()
 		_physicsWorld->getDynamicsWorld()->addAction(enemy->getCCPhysics());
 
 	}
+
+	// Se añaden los sectores
+
+	// Sector 6
+	SceneNode* sector06Node = _sceneMgr->createSceneNode("sector06");
+	Entity* sector06Ent = _sceneMgr->createEntity("sector06", "Sector_06.mesh");
+	sector06Node->attachObject(sector06Ent);
+	_sceneMgr->getRootSceneNode()->addChild(sector06Node);
+	_physicsWorld->addTriangleMesh(sector06Node,sector06Ent,initPos);
+
+
+
 	_physicsWorld->setRootSceneNode(_sceneMgr->getRootSceneNode());
 }
 

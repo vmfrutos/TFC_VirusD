@@ -31,6 +31,8 @@
 #include "physics_debugdraw.h"
 #include "Hero.h"
 #include "Enemy.h"
+#include "IntroState.h"
+#include "Properties.h"
 
 using namespace Ogre;
 using namespace std;

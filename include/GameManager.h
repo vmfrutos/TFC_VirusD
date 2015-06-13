@@ -25,8 +25,11 @@
 #include <Ogre.h>
 #include <OgreSingleton.h>
 #include <OIS/OIS.h>
-
+#include "CeguiManager.h"
 #include "InputManager.h"
+#include "SoundFXManager.h"
+#include "TrackManager.h"
+#include "GameSound.h"
 
 class GameState;
 
@@ -76,6 +79,8 @@ class GameManager : public Ogre::FrameListener, public Ogre::Singleton<GameManag
   InputManager *_inputMgr;
   // Estados del juego.
   std::stack<GameState*> _states;
+
+  bool initSDL();
 };
 
 #endif

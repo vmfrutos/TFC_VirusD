@@ -1,0 +1,35 @@
+// Mat_columnas_petrol genrated by blender2ogre 0.6.0
+
+material Mat_columnas_petrol 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Mat_columnas_petrol
+        {
+            ambient 0.5234225988388062 0.570470929145813 0.5349635481834412 1.0
+            diffuse 0.41873808531072854 0.4563767501171938 0.4279708449240154 1.0
+            specular 0.5 0.5 0.5 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
