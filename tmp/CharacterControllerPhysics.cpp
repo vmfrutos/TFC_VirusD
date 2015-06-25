@@ -84,11 +84,11 @@ bool CharacterControllerPhysics::recoverFromPenetration(btCollisionWorld * colli
 				const btManifoldPoint & pt = manifold->getContactPoint(p);
 
 				btScalar dist = pt.getDistance();
-				std::cout << "dist: " << dist << std::endl;
+
 				//if (dist < 0)
 				if (fabs(dist) > 0.2 /* m_addedMargin? */)
 				{
-					std::cout << "**************dist: " << dist << std::endl;
+
 					maxPen = dist;
 					mTouchingNormal = pt.m_normalWorldOnB * directionSign;
 					penetration = true;

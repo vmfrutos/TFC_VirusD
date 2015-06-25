@@ -25,6 +25,7 @@
 #include <OIS/OIS.h>
 #include <bullet/btBulletDynamicsCommon.h>
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
+#include "BulletCollision/CollisionShapes/btCylinderShape.h"
 
 #include "GameState.h"
 #include "PhysicsWorld.h"
@@ -68,6 +69,8 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
   Hero* getHero();
   std::vector<Enemy*> getEnemies();
 
+
+
  protected:
   Ogre::Root* _root;
   Ogre::SceneManager* _sceneMgr;
@@ -81,8 +84,8 @@ class PlayState : public Ogre::Singleton<PlayState>, public GameState
 
 
   void createScene();
-
-
+  void addSector(string name, string mesh,Vector3 position);
+  void setLights();
   bool _exitGame;
 
 

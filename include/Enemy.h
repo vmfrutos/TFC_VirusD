@@ -23,10 +23,10 @@ public:
 	void updateCharacter(Real dt);
 
 private:
-	static const int WALK_SPEED = 1.0;
+	static const int WALK_SPEED = 1.2;
 	static const int RUN_SPEED = 15;
 	static const int TURN_SPEED = 500;
-	static const int CAM_HEIGHT = 0.5;
+
 
 	enum Direction
 	{

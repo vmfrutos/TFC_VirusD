@@ -6,7 +6,6 @@ Hero::Hero(String name, String mesh, SceneManager * scnMgr, Camera * cam, btPair
 														)
 {
 	mCCPlayer = new CharacterControllerPlayer(name,mesh,cam->getSceneManager(), origin);
-	//mCCPhysics = new CharacterControllerPhysics(ghostObject, convexShape, stepHeight, collisionWorld, btVector3(origin.x,origin.y,origin.z),upAxis);
 	mCCPhysics = new MyKinematicCharacterController(ghostObject, convexShape, stepHeight, btVector3(origin.x,origin.y,origin.z), upAxis);
 
 	mSceneManager = scnMgr;
@@ -15,6 +14,8 @@ Hero::Hero(String name, String mesh, SceneManager * scnMgr, Camera * cam, btPair
 
 	setupCamera(cam);
 
+	cameraHeight = Properties::getSingletonPtr()->getPropertyFloat("hero.camera.heigh");
+
 	mIsFalling = mCCPhysics->onGround();
 	mWalkDirection = Vector3::ZERO;
 	mKeyDirection = Vector3::ZERO;
@@ -22,8 +23,7 @@ Hero::Hero(String name, String mesh, SceneManager * scnMgr, Camera * cam, btPair
 	mRun = false;
 }
 
-Hero::Hero(SceneManager * scnMgr,
-														CharacterControllerPlayer * ccPlayer, MyKinematicCharacterController * ccPhysics
+Hero::Hero(SceneManager * scnMgr, CharacterControllerPlayer * ccPlayer, MyKinematicCharacterController * ccPhysics
 														)
 {
 	mCCPlayer = ccPlayer;
@@ -258,7 +258,7 @@ void Hero::setupCamera(Camera * cam)
 {
 	mCameraPivot = mSceneManager->getRootSceneNode()->createChildSceneNode();
 
-	mCameraGoal = mCameraPivot->createChildSceneNode(Vector3(0, 0, 15));
+	mCameraGoal = mCameraPivot->createChildSceneNode(Vector3(0, 0, Properties::getSingletonPtr()->getPropertyFloat("hero.camera.init.distance")));
 
 	mCameraNode = mSceneManager->getRootSceneNode()->createChildSceneNode();
 	mCameraNode->setPosition(mCameraPivot->getPosition() + mCameraGoal->getPosition());
@@ -276,7 +276,7 @@ void Hero::setupCamera(Camera * cam)
 
 void Hero::updateCamera(Real deltaTime)
 {
-	mCameraPivot->setPosition(mBodyNode->getPosition() + Vector3::UNIT_Y * CAM_HEIGHT);
+	mCameraPivot->setPosition(mBodyNode->getPosition() + Vector3::UNIT_Y * cameraHeight);
 
 	Vector3 goalOffset = mCameraGoal->_getDerivedPosition() - mCameraNode->getPosition();
 	mCameraNode->translate(goalOffset * deltaTime * 9);

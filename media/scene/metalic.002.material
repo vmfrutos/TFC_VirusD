@@ -1,0 +1,35 @@
+// metalic.002 genrated by blender2ogre 0.6.0
+
+material metalic.002 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass metalic.002
+        {
+            ambient 0.3544140160083771 0.5210198760032654 0.2927280366420746 1.0
+            diffuse 0.28353121703164597 0.41681590701365323 0.2341824328032498 1.0
+            specular 0.5000000596046448 0.5000000596046448 0.5000000596046448 1.0 14.25
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

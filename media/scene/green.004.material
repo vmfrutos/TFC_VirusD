@@ -1,0 +1,43 @@
+// green.004 genrated by blender2ogre 0.6.0
+
+material green.004 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass green.004
+        {
+            ambient 0.29019609093666077 0.8980392217636108 0.06666667014360428 1.0
+            diffuse 0.29019609093666077 0.8980392217636108 0.06666667014360428 1.0
+            specular 0.5047562122344971 0.5047562122344971 0.5047562122344971 1.0 10.75
+            emissive 0.29019609093666077 0.8980392217636108 0.06666667014360428 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture dibujo.jpg
+                tex_address_mode wrap
+                scale 0.3333333333333333 0.3333333333333333
+                scroll_anim 1.0 1.0 
+                colour_op modulate
+            }
+        }
+    }
+}

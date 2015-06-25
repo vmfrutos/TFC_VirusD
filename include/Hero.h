@@ -6,6 +6,7 @@
 #include "MyKinematicCharacterController.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+#include "Properties.h"
 
 #include <OIS/OIS.h>
 
@@ -21,7 +22,6 @@ private:
 	static const int WALK_SPEED = 5;
 	static const int RUN_SPEED = 15;
 	static const int TURN_SPEED = 500;
-	static const int CAM_HEIGHT = 0.5;
 
 	MyKinematicCharacterController* mCCPhysics;
 	CharacterControllerPlayer * mCCPlayer;
@@ -35,7 +35,7 @@ private:
 	SceneNode * mCameraNode;
 	Real mPivotPitch;
 	Vector3 mWalkDirection;
-
+	Real cameraHeight;
 
 	bool mIsFalling;
 	bool mJumped;

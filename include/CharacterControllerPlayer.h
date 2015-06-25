@@ -10,31 +10,15 @@ using namespace std;
 class CharacterControllerPlayer
 {
 	private:
-		static const int NUM_ANIMS = 2;
+		static const int NUM_ANIMS = 3;
 		static constexpr const float ANIM_FADE_SPEED = 7.5;
 
 		// Tipo enumerado con los identificadores para las animaciones
 		enum AnimID
 		{
-			ANIM_WALK_BASE,
-			ANIM_RUN_BASE,
-			//ANIM_WALK_TOP,
-
-			/*
-			ANIM_HANDS_CLOSED,
-			ANIM_HANDS_RELAXED,
-
-			ANIM_DRAW_SWORDS,
-
-			ANIM_SLICE_VERTICAL,
-			ANIM_SLICE_HORIZONTAL,
-
-			ANIM_DANCE,
-
-			ANIM_JUMP_START,
-			ANIM_JUMP_LOOP,
-			ANIM_JUMP_END,
-			*/
+			ANIM_WALK,
+			ANIM_RUN,
+			ANIM_STANDBY,
 			ANIM_NONE
 		};
 
@@ -84,7 +68,6 @@ class CharacterControllerPlayer
 		void setupAnimations();
 		void updateAnimations(Real deltaTime);
 		void fadeAnimations(Real deltaTime);
-		void setBaseAnimation(AnimID id, bool reset = false);
-		void setTopAnimation(AnimID id, bool reset = false);
+		void setAnimation(AnimID id, bool reset = false);
 };
 #endif

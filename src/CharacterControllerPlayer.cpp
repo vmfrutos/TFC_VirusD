@@ -19,7 +19,9 @@ void CharacterControllerPlayer::setupBody(SceneManager * sceneMgr, Vector3 & ori
 {
 	_bodyNode = sceneMgr->getRootSceneNode()->createChildSceneNode(_bodyName,origin);
 	_bodyEnt = sceneMgr->createEntity(_bodyName, _bodyMesh);
+	_bodyEnt->setCastShadows(true);
 	_bodyNode->attachObject(_bodyEnt);
+
 }
 
 void CharacterControllerPlayer::setupAnimations()
@@ -30,27 +32,7 @@ void CharacterControllerPlayer::setupAnimations()
 	{
 			"Walk",
 			"Run",
-			/*
-			"WalkBase",
-
-			"WalkTop",
-
-
-
-			"HandsClosed",
-			"HandsRelaxed",
-
-			"DrawSwords",
-
-			"SliceVertical",
-			"SliceHorizontal",
-
-			"Dance",
-
-			"JumpStart",
-			"JumpLoop",
-			"JumpEnd"
-			*/
+			"Standby",
 	};
 
 	for (int i = 0; i < NUM_ANIMS; i++)
@@ -61,16 +43,12 @@ void CharacterControllerPlayer::setupAnimations()
 		_fadingOut[i] = false;
 	}
 
-	setBaseAnimation(ANIM_NONE);
-	//setTopAnimation(ANIM_NONE);
-
-	//_anims[ANIM_HANDS_RELAXED]->setEnabled(true);
+	setAnimation(ANIM_STANDBY);
 }
 
 void CharacterControllerPlayer::updateAnimations(Real deltaTime)
 {
 	Real baseAnimSpeed = 1;
-	Real topAnimSpeed = 1;
 
 	_timer += deltaTime;
 
@@ -101,12 +79,6 @@ void CharacterControllerPlayer::updateAnimations(Real deltaTime)
 
 	if (_baseAnimID != ANIM_NONE)
 		_anims[_baseAnimID]->addTime(deltaTime * baseAnimSpeed);
-
-	/*
-	if (_topAnimID != ANIM_NONE)
-		_anims[_topAnimID]->addTime(deltaTime * topAnimSpeed);
-		*/
-
 
 	fadeAnimations(deltaTime);
 
@@ -142,7 +114,7 @@ void CharacterControllerPlayer::fadeAnimations(Real deltaTime)
 	}
 }
 
-void CharacterControllerPlayer::setBaseAnimation(AnimID id, bool reset)
+void CharacterControllerPlayer::setAnimation(AnimID id, bool reset)
 {
 	if (_baseAnimID >= 0 && _baseAnimID < NUM_ANIMS)
 	{
@@ -166,56 +138,27 @@ void CharacterControllerPlayer::setBaseAnimation(AnimID id, bool reset)
 	}
 }
 
-void CharacterControllerPlayer::setTopAnimation(AnimID id, bool reset)
-{
-
-	if (_topAnimID >= 0 && _topAnimID < NUM_ANIMS)
-	{
-		/// Se establece el fadeout para la actual animación
-		_fadingIn[_topAnimID] = false;
-		_fadingOut[_topAnimID] = true;
-	}
-
-	_topAnimID = id;
-
-	if (id != ANIM_NONE)
-	{
-		// Para la nueva animación que s eva a poner se establece el fadein
-		_anims[id]->setEnabled(true);
-		_anims[id]->setWeight(0);
-		_fadingOut[id] = false;
-		_fadingIn[id] = true;
-
-		if (reset)
-			_anims[id]->setTimePosition(0);
-	}
-}
-
 
 void CharacterControllerPlayer::animWalkStart()
 {
-	//setTopAnimation(ANIM_WALK_TOP);
-	setBaseAnimation(ANIM_WALK_BASE);
+	setAnimation(ANIM_WALK);
 }
 
 void CharacterControllerPlayer::animWalkEnd()
 {
-	//setTopAnimation(ANIM_NONE);
-	setBaseAnimation(ANIM_NONE, true);
+	setAnimation(ANIM_STANDBY, true);
 }
 
 
 
 void CharacterControllerPlayer::animRunStart()
 {
-	//setTopAnimation(ANIM_RUN_TOP);
-	setBaseAnimation(ANIM_RUN_BASE);
+	setAnimation(ANIM_RUN);
 }
 
 void CharacterControllerPlayer::animRunEnd()
 {
-	//setTopAnimation(ANIM_IDLE_TOP);
-	setBaseAnimation(ANIM_NONE, true);
+	setAnimation(ANIM_STANDBY, true);
 }
 
 /*

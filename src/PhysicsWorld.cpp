@@ -69,6 +69,8 @@ PhysicsWorld::addStaticPlane2(SceneNode * node)
 }
 
 void PhysicsWorld::addTriangleMesh(SceneNode* node,Entity * ent,Vector3 initPosition){
+	node->setPosition(initPosition);
+
 	OgreBulletCollisions::StaticMeshToShapeConverter *trimeshConverter = new OgreBulletCollisions::StaticMeshToShapeConverter(ent);
 	OgreBulletCollisions::TriangleMeshCollisionShape *colisionShape = trimeshConverter->createTrimesh();
 

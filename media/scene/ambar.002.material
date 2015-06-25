@@ -1,0 +1,43 @@
+// ambar.002 genrated by blender2ogre 0.6.0
+
+material ambar.002 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass ambar.002
+        {
+            ambient 0.18956875801086426 0.17551185190677643 0.0 1.0
+            diffuse 0.1516550086685271 0.14040948361768546 0.0 1.0
+            specular 1.0 1.0 1.0 1.0 27.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture dibujo.jpg
+                tex_address_mode wrap
+                scale 0.3333333333333333 0.3333333333333333
+                scroll_anim 1.0 1.0 
+                colour_op modulate
+            }
+        }
+    }
+}
