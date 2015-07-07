@@ -161,26 +161,6 @@ void CharacterControllerPlayer::animRunEnd()
 	setAnimation(ANIM_STANDBY, true);
 }
 
-/*
-
-void CharacterControllerPlayer::animJumpStart()
-{
-	setBaseAnimation(ANIM_JUMP_START, true);
-	setTopAnimation(ANIM_NONE);
-	_timer = 0;
-}
-
-void CharacterControllerPlayer::animJumpLoop()
-{
-	setBaseAnimation(ANIM_JUMP_LOOP, true);
-}
-
-void CharacterControllerPlayer::animJumpEnd()
-{
-	setBaseAnimation(ANIM_JUMP_END, true);
-	_timer = 0;
-}
-*/
 
 SceneNode * CharacterControllerPlayer::getBodySceneNode()
 {

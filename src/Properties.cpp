@@ -66,10 +66,6 @@ Properties::getKeys(){
 Properties*
 Properties::getSingletonPtr ()
 {
-	std::cout << "Properties::getSingletonPtr" << std::endl;
-	if (msSingleton == 0) {
-		std::cout << "Properties::getSingletonPtr----->>>> msSingleton == 0" << std::endl;
-	}
 	return msSingleton;
 }
 

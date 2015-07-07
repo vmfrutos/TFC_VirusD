@@ -11,10 +11,13 @@
 #include "Shapes/OgreBulletCollisionsConvexHullShape.h"
 
 using namespace Ogre;
+using namespace std;
+
 class PhysicsWorld
 {
 	private:
 		btAlignedObjectArray<btCollisionShape*> mCollisionShapes;
+		std::map<std::string,btRigidBody*> mRigidBodies;
 		btBroadphaseInterface * mBroadphase;
 		btCollisionDispatcher * mDispatcher;
 		btConstraintSolver * mSolver;
@@ -27,11 +30,11 @@ class PhysicsWorld
 	public:
 		PhysicsWorld(SceneManager* sceneManager);
 		~PhysicsWorld();
-		void addStaticPlane(SceneNode * node);
-		void addStaticPlane2(SceneNode * node);
+
 		void addTriangleMesh(SceneNode* node,Entity * ent,Vector3 initPosition);
-		btRigidBody* addKinematicBody(SceneNode* node,Vector3 initPosition,btCollisionShape* capsule);
-		btRigidBody * addDynamicBox(SceneNode * node, float m = 1.0f);
+		void addDinamicBody(SceneNode* node,Entity * ent,Vector3 initPosition,float mass,Vector3 collisionBox);
+
+
 		btRigidBody * addRigidBody(btTransform transform, btCollisionShape * shape, btScalar mass, SceneNode * node = 0);
 		void addCollisionShape(btCollisionShape * colShape);
 		btDiscreteDynamicsWorld * getDynamicsWorld();
@@ -39,7 +42,9 @@ class PhysicsWorld
 		btBroadphaseInterface * getBroadphase();
 		void setRootSceneNode(SceneNode * node);
 		btVector3 toBullet(const Vector3 & vec) const;
-		void shootBox(const Vector3 & camPosition);
+		//void shootBox(const Vector3 & camPosition);
 		static void debugBtVector3(const btVector3 & vec, const char * str = 0);
-};
+		void deleteRigidBody(string name);
+
+		};
 #endif

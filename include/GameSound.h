@@ -23,12 +23,13 @@ public:
 	bool isPlayingSoundFX(int fx);
 	TrackPtr loadTrack(const string& fileTrack);
 
-	static const int FX_NEW_LEVEL = 1;
-	static const int FX_DEAD = 2;
-	static const int FX_GAME_OVER = 3;
-	static const int FX_SHOOT = 4;
-	static const int FX_ELEVATOR = 5;
-	static const int FX_ALARM = 6;
+	static const int FX_TYPEWRITER = 1;
+	static const int FX_NEW_OBJECT = 2;
+	static const int FX_ZOMBI_01 = 3;
+	static const int FX_ZOMBI_02 = 4;
+	static const int FX_ZOMBI_03 = 5;
+	static const int FX_ZOMBI_04= 6;
+
 
 	void initialize();
 
@@ -41,12 +42,12 @@ private:
 
 
 
-	SoundFXPtr _audioNewLevel;
-	SoundFXPtr _audioDead;
-	SoundFXPtr _audioGameOver;
-	SoundFXPtr _audioShoot;
-	SoundFXPtr _audioElevator;
-	SoundFXPtr _audioAlarm;
+	SoundFXPtr _audioTypewriter;
+	SoundFXPtr _audioNewObject;
+	SoundFXPtr _audioZombie01;
+	SoundFXPtr _audioZombie02;
+	SoundFXPtr _audioZombie03;
+	SoundFXPtr _audioZombie04;
 
 
 

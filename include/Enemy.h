@@ -16,15 +16,18 @@ using namespace Ogre;
 using namespace std;
 class Enemy{
 public:
-	Enemy(String name, String mesh,SceneManager* sceneMgr, btPairCachingGhostObject * ghostObject, btConvexShape * convexShape, btScalar stepHeight, btCollisionWorld * collisionWorld,Vector3 & origin, int upAxis = 1);
+	Enemy(String name, String mesh,SceneManager* sceneMgr, btPairCachingGhostObject * ghostObject, btConvexShape * convexShape, btScalar stepHeight, btCollisionWorld * collisionWorld,Vector3 & origin, int number, int upAxis = 1);
 
 	CharacterControllerNPC * getCCNPC();
 	MyKinematicCharacterController * getCCPhysics();
 	void updateCharacter(Real dt);
 
+	int getWalkSpeedDefault();
+	void setWalkSpeed(int speed);
+
 private:
-	static const int WALK_SPEED = 1.2;
-	static const int RUN_SPEED = 15;
+	float _walkSpeed;
+	float _walkSpeedDefault;
 	static const int TURN_SPEED = 500;
 
 

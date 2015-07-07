@@ -2,24 +2,27 @@
 
 template<> PauseState* Ogre::Singleton<PauseState>::msSingleton = 0;
 
+PauseState::PauseState(){
+	_modalWindow = NULL;
+}
+PauseState::~PauseState(){
+
+}
+
 void
 PauseState::enter ()
 {
-  _root = Ogre::Root::getSingletonPtr();
-
-  // Se recupera el gestor de escena y la cámara.
-  _sceneMgr = _root->getSceneManager("SceneManager");
-  _camera = _sceneMgr->getCamera("IntroCamera");
-  _viewport = _root->getAutoCreatedWindow()->getViewport(0);
-  // Nuevo background colour.
-  _viewport->setBackgroundColour(Ogre::ColourValue(0.0, 1.0, 0.0));
-
-  _exitGame = false;
+	_modalWindow = new Modalwindow("modalWindow.layout");
+	_modalWindow->show();
+	_modalWindow->setText("Pause");
 }
 
 void
 PauseState::exit ()
 {
+	_modalWindow->hide();
+	delete _modalWindow;
+	_modalWindow = 0;
 }
 
 void
@@ -36,17 +39,15 @@ bool
 PauseState::frameStarted
 (const Ogre::FrameEvent& evt)
 {
-  return true;
+	return true;
 }
 
 bool
 PauseState::frameEnded
 (const Ogre::FrameEvent& evt)
 {
-  if (_exitGame)
-    return false;
-  
-  return true;
+
+	return true;
 }
 
 bool
@@ -59,10 +60,10 @@ PauseState::frameRenderingQueued
 void
 PauseState::keyPressed
 (const OIS::KeyEvent &e) {
-  // Tecla p --> Estado anterior.
-  if (e.key == OIS::KC_P) {
-    popState();
-  }
+	// Tecla p --> Estado anterior.
+	if (e.key == OIS::KC_P) {
+		popState();
+	}
 }
 
 void
@@ -92,12 +93,12 @@ PauseState::mouseReleased
 PauseState*
 PauseState::getSingletonPtr ()
 {
-return msSingleton;
+	return msSingleton;
 }
 
 PauseState&
 PauseState::getSingleton ()
 { 
-  assert(msSingleton);
-  return *msSingleton;
+	assert(msSingleton);
+	return *msSingleton;
 }

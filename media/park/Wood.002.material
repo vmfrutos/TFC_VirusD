@@ -1,0 +1,43 @@
+// Wood.002 genrated by blender2ogre 0.6.0
+
+material Wood.002 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass Wood.002
+        {
+            ambient 1.0 1.0 1.0 1.0
+            diffuse 0.49047619104385376 0.49047619104385376 0.49047619104385376 1.0
+            specular 0.03125 0.03125 0.03125 1.0 11.0
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+            texture_unit 
+            {
+                texture tree_texture___11_by_lunanyxstock.jpg
+                tex_address_mode wrap
+                scale 1.0 1.0
+                tex_coord_set 0
+                colour_op modulate
+            }
+        }
+    }
+}

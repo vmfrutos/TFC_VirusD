@@ -1,12 +1,15 @@
-#ifndef __CHARACTERCONTROLLERMANAGER_H__
-#define __CHARACTERCONTROLLERMANAGER_H__
+#ifndef __HERO_H__
+#define __HERO_H__
 
-//#include "CharacterControllerPhysics.h"
+
 #include "CharacterControllerPlayer.h"
 #include "MyKinematicCharacterController.h"
 #include "BulletCollision/CollisionDispatch/btGhostObject.h"
 #include "BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
 #include "Properties.h"
+#include "PlayState.h"
+#include "Hud.h"
+#include "Enemy.h"
 
 #include <OIS/OIS.h>
 
@@ -16,11 +19,12 @@ class btGhostObject;
 class btPairCachingGhostObject;
 class btOverlappingPairCache;
 
+class Enemy;
 class Hero
 {
 private:
-	static const int WALK_SPEED = 5;
-	static const int RUN_SPEED = 15;
+	int _walkSpeed;
+	int _runSpeed;
 	static const int TURN_SPEED = 500;
 
 	MyKinematicCharacterController* mCCPhysics;
@@ -44,6 +48,22 @@ private:
 	Vector3 mGoalDirection;
 	Vector3 mKeyDirection;
 
+	float _maxTimeRunning; // Máximo tiempo que el personaje puede correr sin parar
+	float _timeRest; // Tiempo de descanso para poder volver a correr
+	float _timeRunningAccumulated; // tiempo acumulado corriendo sin parar
+	float _timeRestAccumulated; // tiempo acumulado descansando
+	bool _cansado; // Variable que indica que el personaje está cansado y no puede correr.
+
+
+	enum objectID
+	{
+		KEY,
+		GAS_CAN,
+		CAR,
+	};
+
+	std::map<objectID,bool> _inventary;
+
 
 public:
 	Hero(String name, String mesh, SceneManager * scnMgr, Camera * cam, btPairCachingGhostObject * ghostObject,
@@ -52,9 +72,11 @@ public:
 	);
 
 
+	/*
 	Hero(SceneManager * scnMgr, CharacterControllerPlayer * ccPlayer,
 			MyKinematicCharacterController * ccPhysics
 	);
+	 */
 
 	CharacterControllerPlayer * getCCPlayer();
 	MyKinematicCharacterController * getCCPhysics();
@@ -63,11 +85,19 @@ public:
 	void injectMouseMove(const OIS::MouseEvent & evt);
 	void updateCharacter(Real dt);
 
+	void checkObject();
+
+	bool collisionWithEnemy(std::vector<Enemy*> enemies);
+	bool isGameCompleted();
+
 
 private:
 	void setupCamera(Camera * cam);
 	void updateCamera(Real deltaTime);
 	void updateCameraGoal(Real deltaYaw, Real deltaPitch, Real deltaZoom);
 	Quaternion updateOrientation(Real deltaTime);
+
+	bool checkDistance(objectID id);
+	void getObject(objectID id);
 };
 #endif

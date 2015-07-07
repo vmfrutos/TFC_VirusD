@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(String name, String mesh,SceneManager* sceneMgr, btPairCachingGhostObject * ghostObject, btConvexShape * convexShape, btScalar stepHeight, btCollisionWorld * collisionWorld,Vector3 & origin, int upAxis){
+Enemy::Enemy(String name, String mesh,SceneManager* sceneMgr, btPairCachingGhostObject * ghostObject, btConvexShape * convexShape, btScalar stepHeight, btCollisionWorld * collisionWorld,Vector3 & origin, int number,int upAxis){
 
 	_CCNPC = new CharacterControllerNPC(name,mesh,sceneMgr, origin);
 
@@ -17,7 +17,10 @@ Enemy::Enemy(String name, String mesh,SceneManager* sceneMgr, btPairCachingGhost
 	mJumped = false;
 	mRun = false;
 
-	srand (time(NULL));
+	// entre 0 y 1 puede ser la velocida del enemigo
+	srand (time(NULL)*number);
+	_walkSpeedDefault = (float)((rand() % 30)+10)/10.0;
+	_walkSpeed = _walkSpeedDefault;
 }
 
 CharacterControllerNPC * Enemy::getCCNPC(){
@@ -31,11 +34,9 @@ MyKinematicCharacterController * Enemy::getCCPhysics(){
 void Enemy::updateCharacter(Real deltaTime)
 {
 	Real direction;
-	if (mRun) {
-		direction = RUN_SPEED * deltaTime;
-	} else {
-		direction = WALK_SPEED * deltaTime;
-	}
+
+	direction = _walkSpeed * deltaTime;
+
 
 	Vector3 NPC_Pos = _CCNPC->getPosition();
 
@@ -50,15 +51,13 @@ void Enemy::updateCharacter(Real deltaTime)
 	if (position != NPC_Pos)
 	{
 		_bodyNode->translate((position - NPC_Pos) * direction);
+		//_bodyNode->setPosition(pos.x(), pos.y(), pos.z());
 	}
 
 	_goalDirection = Vector3::ZERO;   // we will calculate this
 
 	if (_keyDirection != Vector3::ZERO)
 	{
-		// calculate actuall goal direction in world based on player's key directions
-		//mGoalDirection += _keyDirection.z * mCameraNode->getOrientation().zAxis();
-		//mGoalDirection += _keyDirection.x * mCameraNode->getOrientation().xAxis();
 		_goalDirection = _keyDirection;
 		_goalDirection.y = 0;
 		_goalDirection.normalise();
@@ -126,29 +125,22 @@ void Enemy::stop(){
 void Enemy::IA(){
 	// De momento simplemente siguen al personaje principal en linea recta
 
-	// un 30% de las veces se mueve d eforma aleatoria para evitar que todos los enemigos hagan lo mismo
-
-	int val = rand() % 10;
-	if (val <= 3){
-		moveRandom();
-	} else {
-
-		// Se recupera la posicion del personaje principal
-		Hero* hero = PlayState::getSingletonPtr()->getHero();
-		Vector3 posHero = hero->getCCPlayer()->getPosition();
-		Vector3 posEnemy = _CCNPC->getPosition();
-		if (posHero.x > posEnemy.x){
-			walk(X_POSITIVE);
-		} else if (posHero.x < posEnemy.x){
-			walk(X_NEGATIVE);
-		}
-
-		if (posHero.z > posEnemy.z){
-			walk(Z_POSITIVE);
-		} else if (posHero.z < posEnemy.z){
-			walk(Z_NEGATIVE);
-		}
+	// Se recupera la posicion del personaje principal
+	Hero* hero = PlayState::getSingletonPtr()->getHero();
+	Vector3 posHero = hero->getCCPlayer()->getPosition();
+	Vector3 posEnemy = _CCNPC->getPosition();
+	if (posHero.x > posEnemy.x){
+		walk(X_POSITIVE);
+	} else if (posHero.x < posEnemy.x){
+		walk(X_NEGATIVE);
 	}
+
+	if (posHero.z > posEnemy.z){
+		walk(Z_POSITIVE);
+	} else if (posHero.z < posEnemy.z){
+		walk(Z_NEGATIVE);
+	}
+
 }
 
 void Enemy::moveRandom(){
@@ -167,3 +159,9 @@ void Enemy::moveRandom(){
 	}
 }
 
+int Enemy::getWalkSpeedDefault(){
+	return _walkSpeedDefault;
+}
+void Enemy::setWalkSpeed(int speed){
+	_walkSpeed = speed;
+}

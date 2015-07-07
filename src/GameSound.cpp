@@ -15,66 +15,65 @@ void GameSound::initialize() {
 	_pTrackManager = new TrackManager;
 	_pSoundFXManager = new SoundFXManager;
 
-	//_audioDead = _pSoundFXManager->load("dead.wav");
-	//_audioNewLevel = _pSoundFXManager->load("newLevel.wav");
-	//_audioGameOver = _pSoundFXManager->load("gameOver.wav");
-	//_audioShoot = _pSoundFXManager->load("gunshot.wav");
-	//_audioElevator = _pSoundFXManager->load("motor.wav");
-	//_audioAlarm = _pSoundFXManager->load("alarme.wav");
+	_audioTypewriter = _pSoundFXManager->load("typewriter.wav");
+	_audioNewObject = _pSoundFXManager->load("newObject.wav");
+	_audioZombie01 = _pSoundFXManager->load("zombie_01.wav");
+	_audioZombie02 = _pSoundFXManager->load("zombie_02.wav");
+	_audioZombie03 = _pSoundFXManager->load("zombie_03.wav");
+	_audioZombie04 = _pSoundFXManager->load("zombie_04.wav");
 }
 
 void
 GameSound::playSoundFX(int fx) {
 
-	if (FX_NEW_LEVEL == fx) {
-		_audioNewLevel->play(FX_NEW_LEVEL,0);
-	} else if (FX_DEAD == fx) {
-		_audioDead->play(FX_DEAD,0);
-	} else if (FX_GAME_OVER == fx) {
-		_audioGameOver->play(FX_GAME_OVER,0);
-	} else if (FX_SHOOT == fx) {
-		_audioShoot->play(FX_SHOOT,0);
-	} else if (FX_ELEVATOR == fx) {
-		_audioElevator->play(FX_ELEVATOR,1);
-	} else if (FX_ALARM == fx) {
-		_audioAlarm->play(FX_ALARM,1);
+	if (FX_TYPEWRITER == fx) {
+		_audioTypewriter->play(FX_TYPEWRITER,0);
+	} else if (FX_NEW_OBJECT == fx) {
+		_audioNewObject->play(FX_NEW_OBJECT,0);
+	} else if (FX_ZOMBI_01 == fx) {
+		_audioZombie01->play(FX_ZOMBI_01,0);
+	} else if (FX_ZOMBI_02 == fx) {
+		_audioZombie02->play(FX_ZOMBI_02,0);
+	} else if (FX_ZOMBI_03 == fx) {
+		_audioZombie03->play(FX_ZOMBI_03,0);
+	} else if (FX_ZOMBI_04 == fx) {
+		_audioZombie04->play(FX_ZOMBI_04,0);
 	}
 }
 
 bool
 GameSound::isPlayingSoundFX(int fx){
 	bool ret = false;
-	if (FX_NEW_LEVEL == fx) {
-		ret = _audioNewLevel->isPlaying(FX_NEW_LEVEL);
-	} else if (FX_DEAD == fx) {
-		ret = _audioDead->isPlaying(FX_DEAD);
-	} else if (FX_GAME_OVER == fx) {
-		ret = _audioGameOver->isPlaying(FX_GAME_OVER);
-	} else if (FX_SHOOT == fx) {
-		ret = _audioShoot->isPlaying(FX_SHOOT);
-	} else if (FX_ELEVATOR == fx) {
-		ret = _audioElevator->isPlaying(FX_ELEVATOR);
-	} else if (FX_ALARM == fx) {
-		ret = _audioAlarm->isPlaying(FX_ALARM);
+	if (FX_TYPEWRITER == fx) {
+		ret = _audioTypewriter->isPlaying(FX_TYPEWRITER);
+	} else if (FX_NEW_OBJECT == fx) {
+		ret = _audioNewObject->isPlaying(FX_NEW_OBJECT);
+	} else if (FX_ZOMBI_01 == fx) {
+		ret = _audioZombie01->isPlaying(FX_ZOMBI_01);
+	} else if (FX_ZOMBI_02 == fx) {
+		ret = _audioZombie02->isPlaying(FX_ZOMBI_02);
+	} else if (FX_ZOMBI_03 == fx) {
+		ret = _audioZombie03->isPlaying(FX_ZOMBI_03);
+	} else if (FX_ZOMBI_04 == fx) {
+		ret = _audioZombie04->isPlaying(FX_ZOMBI_04);
 	}
-
 	return ret;
 }
 
 void GameSound::stopSoundFX(int fx){
 
-	if (FX_NEW_LEVEL == fx) {
-		_audioNewLevel->stop(FX_NEW_LEVEL);
-	} else if (FX_DEAD == fx) {
-		_audioDead->stop(FX_DEAD);
-	} else if (FX_GAME_OVER == fx) {
-		_audioGameOver->stop(FX_GAME_OVER);
-	} else if (FX_SHOOT == fx) {
-		_audioShoot->stop(FX_SHOOT);
-	} else if (FX_ELEVATOR == fx) {
-		_audioElevator->stop(FX_ELEVATOR);
-	} else if (FX_ALARM == fx) {
-		_audioAlarm->stop(FX_ALARM);
+	if (FX_TYPEWRITER == fx) {
+		_audioTypewriter->stop(FX_TYPEWRITER);
+	} else if (FX_NEW_OBJECT == fx) {
+		_audioNewObject->stop(FX_NEW_OBJECT);
+	} else if (FX_ZOMBI_01 == fx) {
+		_audioZombie01->stop(FX_ZOMBI_01);
+	} else if (FX_ZOMBI_02 == fx) {
+		_audioZombie02->stop(FX_ZOMBI_02);
+	} else if (FX_ZOMBI_03 == fx) {
+		_audioZombie03->stop(FX_ZOMBI_03);
+	} else if (FX_ZOMBI_04 == fx) {
+		_audioZombie04->stop(FX_ZOMBI_04);
 	}
 }
 

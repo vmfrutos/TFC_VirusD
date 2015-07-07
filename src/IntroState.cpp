@@ -157,17 +157,17 @@ void IntroState::initialize(){
 	_window->getChild("Intro/Fondo")->setProperty("Image", "set:IntroBackGroud image:full_image");
 
 	_window->getChild("Intro/Fondo")->getChild("Play")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickPlay,this));
-	_window->getChild("Intro/Fondo")->getChild("Records")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickRecords,this));
+	//_window->getChild("Intro/Fondo")->getChild("Records")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickRecords,this));
 	_window->getChild("Intro/Fondo")->getChild("Credits")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickCredits,this));
 	_window->getChild("Intro/Fondo")->getChild("Exit")->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&IntroState::clickExit,this));
 
 	_window->getChild("Intro/Fondo")->getChild("Play")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
-	_window->getChild("Intro/Fondo")->getChild("Records")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
+	//_window->getChild("Intro/Fondo")->getChild("Records")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
 	_window->getChild("Intro/Fondo")->getChild("Credits")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
 	_window->getChild("Intro/Fondo")->getChild("Exit")->subscribeEvent(CEGUI::PushButton::EventMouseLeavesArea,CEGUI::Event::Subscriber(&IntroState::mouseOutButton,this));
 
 	_window->getChild("Intro/Fondo")->getChild("Play")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
-	_window->getChild("Intro/Fondo")->getChild("Records")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
+	//_window->getChild("Intro/Fondo")->getChild("Records")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
 	_window->getChild("Intro/Fondo")->getChild("Credits")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
 	_window->getChild("Intro/Fondo")->getChild("Exit")->subscribeEvent(CEGUI::PushButton::EventMouseEntersArea,CEGUI::Event::Subscriber(&IntroState::mouseInButton,this));
 
@@ -180,19 +180,21 @@ bool
 IntroState::clickPlay(const CEGUI::EventArgs &e){
 
 
-	changeState(PlayState::getSingletonPtr());
+	changeState(InitState::getSingletonPtr());
 	return true;
 }
 
+/*
 bool
 IntroState::clickRecords(const CEGUI::EventArgs &e){
 	//pushState(RecordsState::getSingletonPtr());
 	return true;
 }
+*/
 
 bool
 IntroState::clickCredits(const CEGUI::EventArgs &e){
-	//pushState(CreditsState::getSingletonPtr());
+	changeState(CreditsState::getSingletonPtr());
 	return true;
 }
 

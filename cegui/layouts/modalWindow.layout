@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout>
+    <Window Type="DefaultWindow" Name="ModalWindow" >
+		<Property Name="UnifiedAreaRect" Value="{{0.2,0},{0.2,0},{0.8,0},{0.8,0}}" />
+        
+		<Window Type="TaharezLook/StaticImage" Name="ModalWindow/Fondo" >
+			<Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+			<Property Name="BackgroundEnabled" Value="False" /> 
+            <Property Name="FrameEnabled" Value="False" />        	
+			<Window Type="TaharezLook/StaticText" Name="Text" >
+            	<Property Name="UnifiedAreaRect" Value="{{0.04,0},{0.04,0},{0.96,0},{0.96,0}}" />
+            	<Property Name="BackgroundEnabled" Value="False" /> 
+            	<Property Name="FrameEnabled" Value="False" />
+            	<Property Name="Font" Value="BlackTies-45" />
+            	<Property Name="HorzFormatting" Value="WordWrapCentred" />
+				<Property Name="VertFormatting" Value="VertCentred" />	            		
+            	<Property Name="TextColours" Value="FF000000" />              		
+        	</Window>
+		</Window>
+
+    </Window>
+</GUILayout>

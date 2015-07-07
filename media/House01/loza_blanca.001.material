@@ -1,0 +1,35 @@
+// loza_blanca.001 genrated by blender2ogre 0.6.0
+
+material loza_blanca.001 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass loza_blanca.001
+        {
+            ambient 0.413582444190979 0.38717544078826904 0.4672011733055115 1.0
+            diffuse 0.37932831430919833 0.3551084175814694 0.42850618057526546 1.0
+            specular 0.9101195931434631 0.9101195931434631 0.9101195931434631 1.0 84.25
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

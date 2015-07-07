@@ -6,6 +6,8 @@
 
 #include "GameState.h"
 #include "PlayState.h"
+#include "InitState.h"
+#include "CreditsState.h"
 
 
 class IntroState : public Ogre::Singleton<IntroState>, public GameState

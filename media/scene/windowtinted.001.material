@@ -1,0 +1,35 @@
+// windowtinted.001 genrated by blender2ogre 0.6.0
+
+material windowtinted.001 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass windowtinted.001
+        {
+            ambient 0.009171806275844574 0.007295576389878988 0.01002067793160677 0.6428571939468384
+            diffuse 0.00733744513001211 0.0058364611988732384 0.008016542464741205 0.6428571939468384
+            specular 0.5 0.5 0.5 0.6428571939468384 12.5
+            emissive 0.0 0.0 0.0 0.6428571939468384
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}

@@ -3,7 +3,7 @@
 CharacterControllerNPC::CharacterControllerNPC(String name, String mesh,SceneManager * sceneMgr, Vector3 & origin)
 {
 
-	cout << "Posicion inicial: "<< StringConverter::toString(origin) << endl;
+
 	_bodyName = name;
 	_bodyMesh = mesh;
 	setupBody(sceneMgr, origin);
@@ -18,7 +18,6 @@ void CharacterControllerNPC::addTime(Real deltaTime)
 
 void CharacterControllerNPC::setupBody(SceneManager * sceneMgr, Vector3 & origin)
 {
-	cout << "Posicion del body: "<< StringConverter::toString(origin) << endl;
 	_bodyNode = sceneMgr->getRootSceneNode()->createChildSceneNode(origin);
 	_bodyEnt = sceneMgr->createEntity(_bodyName, _bodyMesh);
 	_bodyNode->attachObject(_bodyEnt);
@@ -50,7 +49,6 @@ void CharacterControllerNPC::setupAnimations()
 void CharacterControllerNPC::updateAnimations(Real deltaTime)
 {
 	Real baseAnimSpeed = 1;
-	Real topAnimSpeed = 1;
 
 	_timer += deltaTime;
 

@@ -36,37 +36,6 @@ PhysicsWorld::~PhysicsWorld()
 	delete mColConfig;
 }
 
-void
-PhysicsWorld::addStaticPlane(SceneNode * node)
-{
-	btCollisionShape * groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
-	mCollisionShapes.push_back(groundShape);
-	btTransform groundTransform;
-	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(0, 0, 0));
-
-	MyMotionState * motionState = new MyMotionState(groundTransform, node);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(0, motionState, groundShape, btVector3(0, 0, 0));
-	btRigidBody * body = new btRigidBody(rbInfo);
-
-	mWorld->addRigidBody(body);
-}
-
-void
-PhysicsWorld::addStaticPlane2(SceneNode * node)
-{
-	btCollisionShape * groundShape = new btBoxShape(btVector3(5, 0, 5));
-	mCollisionShapes.push_back(groundShape);
-	btTransform groundTransform;
-	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(0, 3, 0));
-
-	MyMotionState * motionState = new MyMotionState(groundTransform, node);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(0, motionState, groundShape, btVector3(0, 0, 0));
-	btRigidBody * body = new btRigidBody(rbInfo);
-
-	mWorld->addRigidBody(body);
-}
 
 void PhysicsWorld::addTriangleMesh(SceneNode* node,Entity * ent,Vector3 initPosition){
 	node->setPosition(initPosition);
@@ -85,50 +54,35 @@ void PhysicsWorld::addTriangleMesh(SceneNode* node,Entity * ent,Vector3 initPosi
 	MyMotionState * motionState = new MyMotionState(transform, node);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(0, motionState, triangleMeshShape, btVector3(0, 0, 0));
 	btRigidBody * body = new btRigidBody(rbInfo);
+	body->setFriction(100000);
+
+	string name = node->getName();
+	mRigidBodies[name] = body;
+
 	mWorld->addRigidBody(body);
 
 }
 
-btRigidBody* PhysicsWorld::addKinematicBody(SceneNode* node,Vector3 initPosition,btCollisionShape* capsule){
+void PhysicsWorld::addDinamicBody(SceneNode* node,Entity * ent,Vector3 initPosition,float mass,Vector3 collisionBox){
+	node->setPosition(initPosition);
+
+	btCollisionShape * colShape = new btBoxShape(btVector3(collisionBox.x,collisionBox.y, collisionBox.z));
+	mCollisionShapes.push_back(colShape);
 
 
 	btTransform transform;
 	transform.setIdentity();
 	transform.setOrigin(btVector3(initPosition.x,initPosition.y,initPosition.z));
-	MyMotionState * motionState = new MyMotionState(transform, node);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(50, motionState, capsule, btVector3(initPosition.x,initPosition.y,initPosition.z));
-	btRigidBody * body = new btRigidBody(rbInfo);
-	body->setAngularFactor(btVector3(0, 1, 0));
-	//body->setCollisionFlags( body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-	//body->setActivationState( DISABLE_DEACTIVATION );
-	mWorld->addRigidBody(body);
-	return body;
 
-}
+	btRigidBody * body = addRigidBody(transform,colShape,mass,node);
 
-btRigidBody *
-PhysicsWorld::addDynamicBox(SceneNode * node, float m)
-{
-	btCollisionShape * colShape = new btBoxShape(btVector3(1, 1, 1));
-	mCollisionShapes.push_back(colShape);
-	btTransform boxTransform;
-	boxTransform.setIdentity();
-
-	btScalar mass(m);
-	btVector3 localInertia(0, 0, 0);
-
-	colShape->calculateLocalInertia(mass, localInertia);
-
-	boxTransform.setOrigin(btVector3(node->getPosition().x, node->getPosition().y, node->getPosition().z));
-
-	MyMotionState * motionState = new MyMotionState(boxTransform, node);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, motionState, colShape, localInertia);
-	btRigidBody * body = new btRigidBody(rbInfo);
+	string name = node->getName();
+	mRigidBodies[name] = body;
 
 	mWorld->addRigidBody(body);
 
-	return body;
 }
+
 
 btRigidBody *
 PhysicsWorld::addRigidBody(btTransform transform, btCollisionShape * shape, btScalar mass, SceneNode * node)
@@ -140,6 +94,7 @@ PhysicsWorld::addRigidBody(btTransform transform, btCollisionShape * shape, btSc
 	MyMotionState * motionState = new MyMotionState(transform, node);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, motionState, shape, localInertia);
 	btRigidBody * body = new btRigidBody(rbInfo);
+	body->setFriction(100000);
 
 	mWorld->addRigidBody(body);
 
@@ -183,19 +138,29 @@ PhysicsWorld::toBullet(const Vector3 & vec) const
 	return btVector3(vec.x, vec.y, vec.z);
 }
 
-void
-PhysicsWorld::shootBox(const Vector3 & camPosition)
-{
-	if (mRootSceneNode)
-	{
-		SceneNode * node = mRootSceneNode->createChildSceneNode(camPosition);
-		btRigidBody * box = addDynamicBox(node);
-		box->applyCentralImpulse(btVector3(50, 0, 0));
-	}
-}
 
 void
 PhysicsWorld::debugBtVector3(const btVector3 & vec, const char * str)
 {
 	std::cout << str << " x: " << vec.x() << "; y: " << vec.y() << "; z: " << vec.z() << std::endl;
 }
+
+
+void
+PhysicsWorld::deleteRigidBody(string name){
+
+	btRigidBody *rBody = mRigidBodies[name];
+
+
+	if (rBody->getMotionState())
+	{
+		delete rBody->getMotionState();
+	}
+	mBroadphase->getOverlappingPairCache()->cleanProxyFromPairs(rBody->getBroadphaseHandle(),mWorld->getDispatcher() );
+	mWorld->removeRigidBody(rBody);
+	delete rBody;
+
+	mRigidBodies.erase(name);
+
+}
+

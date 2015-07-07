@@ -1,0 +1,35 @@
+// velg truk.001 genrated by blender2ogre 0.6.0
+
+material velg truk.001 
+{
+    receive_shadows on 
+
+    technique
+    {
+        pass velg truk.001
+        {
+            ambient 0.1541198492050171 0.1541198492050171 0.1541198492050171 1.0
+            diffuse 0.12329588120126544 0.12329588120126544 0.12329588120126544 1.0
+            specular 0.8620689511299133 0.8620689511299133 0.8620689511299133 1.0 12.5
+            emissive 0.0 0.0 0.0 1.0
+
+            alpha_to_coverage off
+            colour_write on
+            cull_hardware clockwise
+            depth_check on
+            depth_func less_equal
+            depth_write on
+            illumination_stage 
+            light_clip_planes off
+            light_scissor off
+            lighting on
+            normalise_normals off
+            polygon_mode solid
+            scene_blend one zero
+            scene_blend_op add
+            shading gouraud
+            transparent_sorting on
+
+        }
+    }
+}
