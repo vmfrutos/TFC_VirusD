@@ -2,5 +2,5 @@ Los laboratorios Lumbrelas han perdido el control del virus-D.|
 El virus se ha expandido con tal velocidad que varias ciudades han sido completamente contaminadas.|
 El ejército ha puesto muros de contención alrededor de las ciudades infectadas.| La única forma de acabar con el virus es convertir en ceniza a los infectados.|||
 
-Tú te encuentras dentro de una de las ciudades sitiads por el ejército y tienes 15 minutos para salir antes de que todo se convierta en cenizas.|
+Es de noche y te encuentras dentro de una de las ciudades sitiadas por el ejército. Tienes 15 minutos para salir antes de que todo se convierta en cenizas.|
  Para poder salir tienes que coger el vehículo que está junto a las puertas de la muralla, pero antes de poder irte debes encontrar combustible y las llaves del coche...

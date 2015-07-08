@@ -32,7 +32,7 @@ material mat_wall
 
             texture_unit 
             {
-                texture wall.jpg
+                texture muro.jpg
                 tex_address_mode wrap
                 scale 1.0 1.0
                 tex_coord_set 0
